@@ -24,9 +24,10 @@ from keyboard import press_and_release
 from keyboard import write
 from pywikihow import search_wikihow 
 from bs4 import BeautifulSoup
+import json
 
-
-
+with open('C:\\Users\\hp\\OneDrive\\Desktop\\Prac\\JarvisPy\\config.json', 'r') as config_file:
+    config = json.load(config_file)
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
 print(voices[1].id)
@@ -44,13 +45,12 @@ def wishMe():
     elif hour>=12 and hour< 18:
         print("Good afternoon sir!")
         speak("Good afternoon sir!")
-    elif hour>=18 and hour<24:
+    elif hour>=18 and hour<23:
         print("good Evening sir")
         speak("good Evening sir")
     else:
         print("Good Night sir!")
         speak("Good Night sir!")
-
     speak("Jarvis at your service. Please tell me how can i help you?")
 
 def takeCommand():
@@ -185,7 +185,7 @@ if __name__ == "__main__":
             sleep(10)
 
         elif 'play music' in query:
-            music_dir = 'C:\\Users\\S GOPTHREYA KUMAR\\Music' 
+            music_dir = '#' 
             songs = os.listdir(music_dir)
             speak("playing Music")
             print(songs)
@@ -198,42 +198,42 @@ if __name__ == "__main__":
             print(f"sir, the time is {strTime}")
             speak(f"sir, the time is {strTime}")
 
-        elif 'open code' in query:
-            codePath = "C:\\Users\\S GOPTHREYA KUMAR\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
+        elif 'open vs code' in query:
+            codePath = config.get('codepath', '')
             os.startfile(codePath)
             speak("Opening Code")
             print("Opening code...")
             sleep(10)
 
         elif 'open powerpoint' in query:
-            codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE"
+            codePath = config.get('pptpath','')
             os.startfile(codePath)
             speak("Opening powerpoint")
             print("Opening powerpoint...")
             sleep(10) 
 
-        elif 'open word office' in query:
-            codePath = "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+        elif 'open word' in query:
+            codePath = config.get('wordpath','')
             os.startfile(codePath)
             print("Opening word office...") 
             speak("Opening word office")
             sleep(10)
             
         elif 'open python ide' in query:
-            codePath = "C:\\Program Files\\JetBrains\\PyCharm Community Edition 2021.1.1\\bin\\pycharm64.exe"
+            codePath = "#"
             os.startfile(codePath)
             print("Opening pycharm...")
             speak("Opening pycharm")
             sleep(10)
             
         elif 'open outlook' in query:
-            codePath = "C:\\Program Files\\Google\\Chrome\\Application\\chrome_proxy.exe" 
+            codePath = config.get('outpath','') 
             os.startfile(codePath)
             speak("Opening outlook")
             print("Opening outlook...")
 
         elif 'open edge' in query:
-            codePath = "C:\\Program Files (x86)\Microsoft\\Edge\\Application\\msedge.exe"
+            codePath = config.get('edgepath')
             os.startfile(codePath)
             print("Opening edge...")
             speak("Opening edge")
@@ -277,6 +277,7 @@ if __name__ == "__main__":
                 else:
                     print("Next command...")
                     speak("Next command...")
+                    break
 
         elif 'send an email' in query:
             try:
@@ -291,7 +292,7 @@ if __name__ == "__main__":
                 sleep(10)
     
         elif "temperature" in query:
-            search = "Temperature in Hyderabad"
+            search = "Temperature in Vijayawada"
             url = f"https://www.google.com/search?q={search}"
             r = requests.get(url)
             data = BeautifulSoup(r.text,"html.parser")
@@ -428,12 +429,12 @@ if __name__ == "__main__":
                 print("sorry sir, i am not able to find this...")
                 speak("sorry sir, i am not able to find this...")
 
-        elif 'you can sleep' in query or 'sleep now' in query:
+        elif 'you can sleep' in query or 'sleep now' in query or 'go to sleep' in query:
             print("okay sir, i am going to sleep you can call me anytime...")
             speak("okay sir, i am going to sleep you can call me anytime...")
             break
         
-        elif "stop" in query:
+        elif "stop" in query or 'exit' in query:
             print("okay sir")
             speak("okay sir")
             break
