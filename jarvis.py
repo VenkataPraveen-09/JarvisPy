@@ -275,7 +275,6 @@ if __name__ == "__main__":
                 elif now>time:
                     break
                 else:
-                    
                     print("Next command...")
                     speak("Next command...")
 
