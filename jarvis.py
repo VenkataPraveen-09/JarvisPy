@@ -70,8 +70,7 @@ def takeCommand():
         speak("Say that again please....")
         return "None"
     return query
-   
-#pywhatkit.sendwhatmsg('+918639438394','Hello this is jarvis',1,22)           
+         
 def whatsapp(number,message):
     number = '+91' + int(num)
     message = message
@@ -135,20 +134,12 @@ def YoutubeAuto(command):
 sleep(2)
 YoutubeAuto('')
 
-##def YoutubeSearch(term):
-    #result = "https://www.youtube.com/results?search_query=" + term
-    #web.open(result)
-    #speak("This is what i found for your search sir")
-    #pywhatkit.playonyt(term)
-    #speak("This may also help you sir")
-#YoutubeSearch('mr mowa bro')
-
 def sendEmail(to, content):
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.ehlo()
     server.starttls()
-    server.login('gopthreya123@gmail.com', 'gopthreya45321gmail')
-    server.sendmail('gopthreya123@gmail.com', to, content)
+    server.login('email', 'password')
+    server.sendmail('email', to, content)
     server.close()
    
 if __name__ == "__main__": 
@@ -238,6 +229,13 @@ if __name__ == "__main__":
             print("Opening edge...")
             speak("Opening edge")
             sleep(10)
+        
+        elif 'open chrome' in query:
+            codePath = config.get('chrompath')
+            os.startfile(codePath)
+            print("Opening chrome...")
+            speak("Opening chrome")
+            sleep(10)
 
         elif 'youtube search' in query :
             print("what to search")
@@ -254,10 +252,10 @@ if __name__ == "__main__":
             up = st.upload()
             print(f"Sir we have {dl} bit per second downloading speed and {up} bit per second uploading speed")
             speak(f"Sir we have {dl} bit per second downloading speed and {up} bit per second uploading speed")
-           # try:
-            #    os.system('cmd /k "speedtest"')
-            #except:
-             #   speak("there is no internet connection")
+            # try:
+            #     os.system('cmd /k "speedtest"')
+            # except:
+            #     speak("there is no internet connection")
 
         elif 'alarm' in query:
             speak("Say the time: ")
@@ -270,7 +268,6 @@ if __name__ == "__main__":
 
                 if now == time:
                     speak("Time to Wake Up sir")
-                    #playsound("C:\\Users\\S GOPTHREYA KUMAR\\Arjun Reddy.mp3")
                     speak("Alarm Closed!")
                 elif now>time:
                     break
@@ -283,12 +280,12 @@ if __name__ == "__main__":
             try:
                 speak("What should I say?")
                 content = takeCommand()
-                to = "gopthreya000@gmail.com"
+                to = "vvpraveen2003@gmail.com"
                 sendEmail(to, content)
                 speak("Email has been sent")
             except Exception as e:
                 print(e)
-                speak("Hello Gopthreya how r u, Iam 5n, this is from Jarvis")
+                speak("Some Thing went wrong...")
                 sleep(10)
     
         elif "temperature" in query:
@@ -301,46 +298,6 @@ if __name__ == "__main__":
             speak(f"current {search} is {temp}")
             sleep(5)
 
-        elif "instagram profile" in query:
-            print("If you want to speak! say yes, or you want to give input! say no")
-            speak("If you want to speak! say yes, or you want to give input! say no")
-            condition1 = takeCommand().lower()
-            if 'yes' in condition1:
-                print("Please say the User name...")
-                speak("Please say the User name...")
-                name = takeCommand().lower()
-            else:
-                speak("Enter Username here")
-                name = input("Enter Username here:")   
-
-            webbrowser.open(f"www.instagram.com/{name}")
-            sleep(10)          
-            speak("Sir would you like to download profile picture of this account.")
-            condition2 = takeCommand().lower()
-            if 'yes' in condition2:
-                mod = instaloader.Instaloader()
-                mod.download_profile(name, profile_pic_only = True)
-                print('I am done sir, profile picture is saved in our main folder...')
-                speak('I am done sir, profile picture is saved in our main folder...')
-            else:
-                pass
-            sleep(10)
-
-        elif 'google search ' in query:
-            import wikipedia as googleScrap
-            query = query.replace("jarvis","")
-            query = query.replace("google search","")
-            query = query.replace("google","")
-            speak("This is what i found on web!")
-            pywhatkit.search(query)
-            try:               
-                result = googleScrap.summary(query,3)
-                print(result)
-                speak(result)
-                sleep(10)
-            except:
-                speak("No Speakable data Available!")
-
         elif 'whatsapp message' in query:
             query = query.replace("jarvis","")
             query = query.replace("send","")
@@ -348,50 +305,37 @@ if __name__ == "__main__":
             query = query.replace("to","")
             name = query
             
-            if 'best friend' in name:
-                num = "6303 177 679"
+            if 'friend' in name:
+                num = ""
                 speak("what message should i sent for {name}")
                 message = takeCommand()
                 whatsapp.whatsapp(num,message)
 
             elif 'dad' in name:
-                num = "8688023233"
+                num = ""
                 speak("what message should i sent for {name}")
                 message = takeCommand()
                 whatsapp(num,message)
 
             elif 'friends' in name:
-                group = "JOZ3yPo3Qiz0GN1YREggty"
+                group = ""
                 speak(f"what message should i sent for {name}")
                 message = takeCommand()
                 whatsapp_grp(group,message)
                 
         elif 'search on chrome' in query:
             speak("what should i search sir")
+            urL='https://www.google.com'
             search = takeCommand()
-            chromepath =  "C://Program Files//Google//Chrome//Application//chrome.exe %s"
-            webbrowser.get(chromepath).open_new_tab(search) 
+            chromepath=config.get('chrompath')
+            webbrowser.register('chrome', None,webbrowser.BackgroundBrowser(chromepath))
+            webbrowser.get(chromepath).open_new_tab(search)
+
             print("\nopening "+search)
             speak("opening "+search)
             sleep(10)
             speak("next command")
-
-        elif 'enter the meeting' in query:
-             Link = "https://meet.google.com/fum-qokb-uhm"
-             print(Link)
-             web.open(Link)
-             sleep(5)
-
-             click(x=433, y=608)
-             sleep(2)
-
-             click(x=534, y=613)
-             sleep(2)
-
-             click(x=362, y=899)
-             print("Class joined sir")
-             speak("Class joined sir")
-
+        
         elif 'where i am' in query or 'where we are' in query:
             speak("wait sir, let me check")
             try:
@@ -438,25 +382,3 @@ if __name__ == "__main__":
             print("okay sir")
             speak("okay sir")
             break
-
-
-                     
-           
-
-            
-        
-
-
-      
-
-   
-
-    
-
-
-
-       
-
-
-
-
