@@ -1,7 +1,6 @@
 from platform import release
 from re import search
 from time import sleep
-from numpy.core.fromnumeric import take
 import pyttsx3
 import datetime
 from playsound import playsound
@@ -12,8 +11,6 @@ import os
 import smtplib
 import requests
 import speedtest
-import instaloader
-import pywhatkit
 import webbrowser as web
 import time
 import keyboard
@@ -26,7 +23,7 @@ from pywikihow import search_wikihow
 from bs4 import BeautifulSoup
 import json
 
-with open('C:\\Users\\hp\\OneDrive\\Desktop\\Prac\\JarvisPy\\config.json', 'r') as config_file:
+with open('E:\\Python Proj\\JarvisPy\\config.json', 'r') as config_file:
     config = json.load(config_file)
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
